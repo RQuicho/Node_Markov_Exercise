@@ -40,35 +40,50 @@ class MarkovMachine {
       
     // }
 
-    let obj = {};
+    let chain = {};
     
     for (let i=0; i<this.words.length; i++) {
       let word = this.words[i];
       let nextWord = this.words[i+1];
 
-      if (!obj[word]) {
-        obj[word] = [];
+      if (!chain[word]) {
+        chain[word] = [];
       } 
       
       if (nextWord === undefined) {
-        obj[word].push(null);
+        chain[word].push(null);
       } else {
-        obj[word].push(nextWord)
+        chain[word].push(nextWord)
       }
 
     }
-    console.log(obj); 
+    console.log(chain); // {the: ["cat", "hat"], cat: ["in"], in: ["the"], hat: [null]}
+    this.chain = chain; 
 
   }
 
 
   /** return random text from chains */
 
-  makeText(numWords = 100) {
+  makeText(numWords = 10) {
     // TODO
+    let randomIndex = Math.floor(Math.random() * this.words.length);
+    let randomWord = this.words[randomIndex];
+    console.log(randomWord); // logs random word from text
 
-    let randomWord = this.words[(Math.random() * this.words.length)];
-    console.log(randomWord);
+    let randomText = [randomWord];
+
+    for (let i=0; i<numWords; i++) {
+      let nextTextWords = this.chain[randomWord]; // array of potential next words from chains object (the: ['cat', 'hat'])
+      console.log(nextTextWords);
+      let nextTextIndex = Math.floor(Math.random() * nextTextWords.length); // random number from previous array
+      let nextTextWord = nextTextWords[nextTextIndex];
+      randomText.push(nextTextWord);
+      randomWord = nextTextWord;
+    }
+    console.log(randomText.join(' '));
+    return randomText.join(' ');
+
 
   }
 }
