@@ -18,7 +18,7 @@ class MarkovMachine {
 
   makeChains() {
     // TODO
-    console.log(this.words); // Output: ['the', 'cat', 'in', 'the', 'hat']
+    //console.log(this.words); // Output: ['the', 'cat', 'in', 'the', 'hat']
     //console.log(this.words[0]); // Output: the
     //console.log(this.words[0+1]); // Output: cat
 
@@ -57,7 +57,7 @@ class MarkovMachine {
       }
 
     }
-    console.log(chain); // {the: ["cat", "hat"], cat: ["in"], in: ["the"], hat: [null]}
+    //console.log(chain); // {the: ["cat", "hat"], cat: ["in"], in: ["the"], hat: [null]}
     this.chain = chain; 
 
   }
@@ -69,13 +69,13 @@ class MarkovMachine {
     // TODO
     let randomIndex = Math.floor(Math.random() * this.words.length);
     let randomWord = this.words[randomIndex];
-    console.log(randomWord); // logs random word from text
+    //console.log(randomWord); // logs random word from text
 
     let randomText = [randomWord];
 
-    for (let i=0; i<numWords; i++) {
+    while (randomText.length < numWords && randomWord !== null) {
       let nextTextWords = this.chain[randomWord]; // array of potential next words from chains object (the: ['cat', 'hat'])
-      console.log(nextTextWords);
+      //console.log(nextTextWords);
       let nextTextIndex = Math.floor(Math.random() * nextTextWords.length); // random number from previous array
       let nextTextWord = nextTextWords[nextTextIndex];
       randomText.push(nextTextWord);
@@ -84,6 +84,10 @@ class MarkovMachine {
     console.log(randomText.join(' '));
     return randomText.join(' ');
 
-
   }
 }
+
+
+module.exports = {
+  MarkovMachine,
+};
